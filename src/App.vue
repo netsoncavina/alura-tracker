@@ -6,12 +6,11 @@
     <div class="column is-three-quarter">
       <Formulario @aoSalvarTarefa="adicionarTarefa" />
       <div class="lista">
-        <Tarefa />
-        <Tarefa />
-        <Tarefa />
-        <Tarefa />
-        <Tarefa />
-        <Tarefa />
+        <Tarefa
+          v-for="(tarefa, index) in tarefas"
+          :key="index"
+          :tarefa="tarefa"
+        />
       </div>
     </div>
   </main>
