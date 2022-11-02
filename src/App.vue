@@ -4,7 +4,7 @@
       <BarraLateral />
     </div>
     <div class="column is-three-quarter">
-      <Formulario />
+      <Formulario @aoSalvarTarefa="adicionarTarefa" />
       <div class="lista">
         <Tarefa />
         <Tarefa />
@@ -22,12 +22,23 @@ import { defineComponent } from "vue";
 import BarraLateral from "./components/BarraLateral.vue";
 import Formulario from "./components/Formulario.vue";
 import Tarefa from "./components/Tarefa.vue";
+import ITarefa from "./interfaces/ITarefa";
 export default defineComponent({
   name: "App",
   components: {
     BarraLateral,
     Formulario,
     Tarefa,
+  },
+  data() {
+    return {
+      tarefas: [] as ITarefa[],
+    };
+  },
+  methods: {
+    adicionarTarefa(tarefa: ITarefa): void {
+      this.tarefas.push(tarefa);
+    },
   },
 });
 </script>
