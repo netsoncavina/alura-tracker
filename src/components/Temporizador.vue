@@ -1,29 +1,31 @@
 <template>
   <div class="is-flex is-align-items-center is-justify-content-space-between">
     <Cronometro :tempoEmSegundos="tempoEmSegundos" />
-    <button class="button" @click="iniciar" :disabled="cronometroRodando">
-      <span class="icon">
-        <i class="fas fa-play"></i>
-      </span>
-      <span class="text">play</span>
-    </button>
-    <button class="button" @click="finalizar" :disabled="!cronometroRodando">
-      <span class="icon">
-        <i class="fas fa-stop"></i>
-      </span>
-      <span class="text">stop</span>
-    </button>
+    <Botao
+      :isAtivo="cronometroRodando"
+      icone="fas fa-play"
+      texto="play"
+      @clicado="iniciar"
+    />
+    <Botao
+      :isAtivo="!cronometroRodando"
+      icone="fas fa-stop"
+      texto="stop"
+      @clicado="finalizar"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Cronometro from "./Cronometro.vue";
+import Botao from "./Botao.vue";
 export default defineComponent({
   name: "TemporizadorVue",
   emits: ["aoTemporizadorFinalizado"],
   components: {
     Cronometro,
+    Botao,
   },
   data() {
     return {
@@ -48,9 +50,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.text {
-  padding-left: 1rem;
-}
-</style>
