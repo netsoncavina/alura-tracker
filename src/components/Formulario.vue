@@ -13,23 +13,7 @@
         />
       </div>
       <div class="column">
-        <div
-          class="is-flex is-align-items-center is-justify-content-space-between"
-        >
-          <Cronometro :tempoEmSegundos="tempoEmSegundos" />
-          <button class="button" @click="iniciar">
-            <span class="icon">
-              <i class="fas fa-play"></i>
-            </span>
-            <span class="text">play</span>
-          </button>
-          <button class="button" @click="finalizar">
-            <span class="icon">
-              <i class="fas fa-stop"></i>
-            </span>
-            <span class="text">stop</span>
-          </button>
-        </div>
+        <Temporizador />
       </div>
     </div>
   </div>
@@ -37,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Cronometro from "./Cronometro.vue";
+import Temporizador from "./Temporizador.vue";
 export default defineComponent({
   name: "FormularioTarefa",
   data() {
@@ -47,24 +31,7 @@ export default defineComponent({
     };
   },
   components: {
-    Cronometro,
-  },
-  methods: {
-    iniciar() {
-      this.cronometro = setInterval(() => {
-        this.tempoEmSegundos++;
-      }, 1000);
-    },
-    finalizar() {
-      clearInterval(this.cronometro);
-      this.tempoEmSegundos = 0;
-    },
+    Temporizador,
   },
 });
 </script>
-
-<style scoped>
-.text {
-  padding-left: 1rem;
-}
-</style>
