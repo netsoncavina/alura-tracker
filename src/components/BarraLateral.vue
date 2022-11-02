@@ -15,8 +15,9 @@ export default defineComponent({
 
 <style scoped>
 header {
+  padding: 1rem;
   background: #0d3b66;
-  width: 100%;
+  width: 86%;
   height: 100vh;
 }
 @media only screen and (max-width: 768px) {
