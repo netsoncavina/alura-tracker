@@ -21,6 +21,7 @@
 <script lang="ts">
 import IProjeto from '@/interfaces/IProjeto';
 import { store, useStore } from '@/store';
+import { ADICIONA_PROJETO, ALTERA_PROJETO } from '@/store/tipo-mutacoes';
 import { defineComponent } from 'vue';
 // import { Store } from 'vuex';
 
@@ -49,17 +50,14 @@ export default defineComponent({
   methods: {
     salvar() {
       if (this.id) {
-        (this.store as typeof store).commit('ALTERA_PROJETO', {
+        (this.store as typeof store).commit(ALTERA_PROJETO, {
           id: this.id,
           nome: this.nomeDoProjeto,
         } as IProjeto);
         this.$router.push('/projetos');
         return;
       }
-      (this.store as typeof store).commit(
-        'ADICIONA_PROJETO',
-        this.nomeDoProjeto
-      );
+      (this.store as typeof store).commit(ADICIONA_PROJETO, this.nomeDoProjeto);
       this.nomeDoProjeto = '';
       this.$router.push('/projetos');
     },
