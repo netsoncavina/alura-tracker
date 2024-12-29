@@ -8,19 +8,25 @@ const rotas: RouteRecordRaw[] = [
   },
   {
     path: '/projetos',
-    name: 'Projetos',
     component: () => import('@/views/Projetos.vue'),
-  },
-  {
-    path: '/projetos/novo',
-    name: 'Novo projeto',
-    component: () => import('@/views/Projetos/Formulario.vue'),
-  },
-  {
-    path: '/projetos/:id',
-    name: 'Editar projeto',
-    component: () => import('@/views/Projetos/Formulario.vue'),
-    props: true,
+    children: [
+      {
+        path: '',
+        name: 'Lista',
+        component: () => import('@/views/Projetos/Lista.vue'),
+      },
+      {
+        path: 'novo',
+        name: 'Novo projeto',
+        component: () => import('@/views/Projetos/Formulario.vue'),
+      },
+      {
+        path: ':id',
+        name: 'Editar projeto',
+        component: () => import('@/views/Projetos/Formulario.vue'),
+        props: true,
+      },
+    ],
   },
 ];
 
