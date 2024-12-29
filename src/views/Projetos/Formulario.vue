@@ -19,10 +19,9 @@
 </template>
 
 <script lang="ts">
-import { useStore } from '@/store';
+import { store, useStore } from '@/store';
 import { defineComponent } from 'vue';
-import { Store } from 'vuex';
-import IProjeto from '@/interfaces/IProjeto';
+// import { Store } from 'vuex';
 
 export default defineComponent({
   name: 'Formulario',
@@ -33,7 +32,10 @@ export default defineComponent({
   },
   methods: {
     salvar() {
-      (this.store as Store<any>).commit('ADICIONA_PROJETO', this.nomeDoProjeto);
+      (this.store as typeof store).commit(
+        'ADICIONA_PROJETO',
+        this.nomeDoProjeto
+      );
       this.nomeDoProjeto = '';
       this.$router.push('/projetos');
     },
