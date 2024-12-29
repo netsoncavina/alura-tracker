@@ -36,9 +36,9 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { useStore } from 'vuex';
 import IProjeto from '@/interfaces/IProjeto';
-import { key } from '@/store';
+import { useStore } from '@/store';
+import Temporizador from './Temporizador.vue';
 
 export default defineComponent({
   data() {
@@ -46,6 +46,9 @@ export default defineComponent({
       descricao: '',
       idProjeto: '',
     };
+  },
+  components: {
+    Temporizador,
   },
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
@@ -60,7 +63,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const store = useStore(key);
+    const store = useStore();
     const projetos = computed(() => store.state.projetos as IProjeto[]);
     return {
       projetos,
