@@ -25,6 +25,7 @@ import { notificacaoMixin } from '@/mixins/notificar';
 import { store, useStore } from '@/store';
 import { ADICIONA_PROJETO, ALTERA_PROJETO } from '@/store/tipo-mutacoes';
 import { defineComponent } from 'vue';
+import useNotificador from '@/hooks/notificador';
 // import { Store } from 'vuex';
 
 export default defineComponent({
@@ -34,7 +35,7 @@ export default defineComponent({
       type: String,
     },
   },
-  mixins: [notificacaoMixin],
+  //   mixins: [notificacaoMixin],
   mounted() {
     if (this.id) {
       const projeto = (this.store as typeof store).state.projetos.find(
@@ -73,8 +74,10 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
+    const { notificar } = useNotificador() as any;
     return {
       store,
+      notificar,
     };
   },
 });
