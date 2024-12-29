@@ -10,11 +10,7 @@ export const key: InjectionKey<Store<Estado>> = Symbol();
 
 export const store = createStore<Estado>({
   state: {
-    projetos: [
-      { id: '1', nome: 'Projeto 1' },
-      { id: '2', nome: 'Projeto 2' },
-      { id: '3', nome: 'Projeto 3' },
-    ],
+    projetos: [],
   },
   mutations: {
     ADICIONA_PROJETO(state, nomeDoProjeto: string) {
@@ -27,8 +23,8 @@ export const store = createStore<Estado>({
   },
 });
 
-// export function useStore(): Store<Estado> {
-//   return vuexUseStore(key);
-// }
+export function useStore(): Store<Estado> {
+  return vuexUseStore(key);
+}
 
 // export default key;
