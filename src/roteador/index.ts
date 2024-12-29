@@ -20,6 +20,7 @@ const rotas: RouteRecordRaw[] = [
     path: '/projetos/:id',
     name: 'Editar projeto',
     component: () => import('@/views/Projetos/Formulario.vue'),
+    props: true,
   },
 ];
 
