@@ -19,12 +19,28 @@
 </template>
 
 <script lang="ts">
+import IProjeto from '@/interfaces/IProjeto';
 import { store, useStore } from '@/store';
 import { defineComponent } from 'vue';
 // import { Store } from 'vuex';
 
 export default defineComponent({
   name: 'Formulario',
+  props: {
+    id: {
+      type: String,
+    },
+  },
+  mounted() {
+    if (this.id) {
+      const projeto = (this.store as typeof store).state.projetos.find(
+        (projeto) => projeto.id === this.id
+      );
+      if (projeto) {
+        this.nomeDoProjeto = projeto.nome;
+      }
+    }
+  },
   data() {
     return {
       nomeDoProjeto: '',
@@ -32,6 +48,14 @@ export default defineComponent({
   },
   methods: {
     salvar() {
+      if (this.id) {
+        (this.store as typeof store).commit('ALTERA_PROJETO', {
+          id: this.id,
+          nome: this.nomeDoProjeto,
+        } as IProjeto);
+        this.$router.push('/projetos');
+        return;
+      }
       (this.store as typeof store).commit(
         'ADICIONA_PROJETO',
         this.nomeDoProjeto
