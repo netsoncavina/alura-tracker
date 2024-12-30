@@ -40,12 +40,14 @@ import { useStore } from '@/store';
 import { computed, defineComponent } from 'vue';
 import IProjeto from '@/interfaces/IProjeto';
 import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes';
+import { OBTER_PROJETOS } from '@/store/tipo-acoes';
 
 export default defineComponent({
   name: 'Lista',
   setup() {
     const store = useStore();
     const projetos = computed(() => store.state.projetos as IProjeto[]);
+    store.dispatch(OBTER_PROJETOS);
 
     const excluir = (id: string) => {
       store.commit(EXCLUIR_PROJETO, id);
