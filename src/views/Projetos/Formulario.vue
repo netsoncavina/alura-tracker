@@ -23,9 +23,9 @@ import { TipoNotificacao } from '@/interfaces/INotificacao';
 import IProjeto from '@/interfaces/IProjeto';
 import { notificacaoMixin } from '@/mixins/notificar';
 import { store, useStore } from '@/store';
-import { ADICIONA_PROJETO, ALTERA_PROJETO } from '@/store/tipo-mutacoes';
 import { defineComponent } from 'vue';
 import useNotificador from '@/hooks/notificador';
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from '@/store/tipo-acoes';
 // import { Store } from 'vuex';
 
 export default defineComponent({
@@ -54,15 +54,24 @@ export default defineComponent({
   methods: {
     salvar() {
       if (this.id) {
-        (this.store as typeof store).commit(ALTERA_PROJETO, {
-          id: this.id,
-          nome: this.nomeDoProjeto,
-        } as IProjeto);
-        this.$router.push('/projetos');
-        return;
+        (this.store as typeof store)
+          .dispatch(ALTERAR_PROJETO, {
+            id: this.id,
+            nome: this.nomeDoProjeto,
+          } as IProjeto)
+          .then(() => {
+            this.lidarComSucesso();
+          });
+      } else {
+        (this.store as typeof store)
+          .dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto)
+          .then(() => {
+            this.lidarComSucesso();
+          });
       }
-      (this.store as typeof store).commit(ADICIONA_PROJETO, this.nomeDoProjeto);
-      this.notificar(
+    },
+    lidarComSucesso() {
+      (this.notificar as typeof notificacaoMixin.methods.notificar)(
         TipoNotificacao.SUCESSO,
         'Sucesso',
         'Projeto salvo com sucesso'
@@ -74,7 +83,7 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
-    const { notificar } = useNotificador() as any;
+    const { notificar } = useNotificador();
     return {
       store,
       notificar,
