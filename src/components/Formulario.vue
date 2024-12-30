@@ -64,7 +64,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const projetos = computed(() => store.state.projetos as IProjeto[]);
+    const projetos = computed(() => store.state.projeto.projetos as IProjeto[]);
     return {
       projetos,
     };

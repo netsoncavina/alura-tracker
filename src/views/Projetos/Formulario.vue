@@ -38,7 +38,7 @@ export default defineComponent({
   //   mixins: [notificacaoMixin],
   mounted() {
     if (this.id) {
-      const projeto = (this.store as typeof store).state.projetos.find(
+      const projeto = (this.store as typeof store).state.projeto.projetos.find(
         (projeto) => projeto.id === this.id
       );
       if (projeto) {

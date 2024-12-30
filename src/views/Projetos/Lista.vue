@@ -45,7 +45,7 @@ export default defineComponent({
   name: 'Lista',
   setup() {
     const store = useStore();
-    const projetos = computed(() => store.state.projetos as IProjeto[]);
+    const projetos = computed(() => store.state.projeto.projetos as IProjeto[]);
     store.dispatch(OBTER_PROJETOS);
 
     const excluir = (id: string) => {
