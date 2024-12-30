@@ -9,7 +9,12 @@ import {
   NOTIFICAR,
 } from './tipo-mutacoes';
 import { INotificacao } from '@/interfaces/INotificacao';
-import { OBTER_PROJETOS } from './tipo-acoes';
+import {
+  ALTERAR_PROJETO,
+  CADASTRAR_PROJETO,
+  OBTER_PROJETOS,
+  REMOVER_PROJETO,
+} from './tipo-acoes';
 import http from '@/http';
 
 interface Estado {
@@ -57,6 +62,21 @@ export const store = createStore<Estado>({
     [OBTER_PROJETOS]({ commit }) {
       http.get<IProjeto[]>('projetos').then((response) => {
         commit(DEFINIR_PROJETOS, response.data);
+      });
+    },
+    async [CADASTRAR_PROJETO](contexto, nomeDoProjeto: string) {
+      await http.post('/projetos', {
+        nome: nomeDoProjeto,
+      });
+      contexto.commit(ADICIONA_PROJETO, nomeDoProjeto);
+    },
+    async [ALTERAR_PROJETO]({ commit }, projeto: IProjeto) {
+      await http.put(`/projetos/${projeto.id}`, projeto);
+      commit(ALTERA_PROJETO, projeto);
+    },
+    async [REMOVER_PROJETO]({ commit }, id: string) {
+      await http.delete(`/projetos/${id}`).then(() => {
+        commit(EXCLUIR_PROJETO, id);
       });
     },
   },
