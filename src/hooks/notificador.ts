@@ -6,14 +6,16 @@ type Notificador = {
   notificar: (tipo: TipoNotificacao, titulo: string, texto: string) => void;
 };
 
-export default (): Notificador => {
+const useNotificador: () => Notificador = () => {
   const notificar = (tipo: TipoNotificacao, titulo: string, texto: string) => {
     store.commit(NOTIFICAR, {
-      titulo: titulo,
-      texto: texto,
-      tipo: tipo,
+      titulo,
+      texto,
+      tipo,
     });
   };
 
   return { notificar };
 };
+
+export default useNotificador;
