@@ -103,7 +103,7 @@ export default defineComponent({
     store.dispatch(OBTER_TAREFAS);
     store.dispatch(OBTER_PROJETOS);
     return {
-      tarefas: computed(() => store.state.tarefas as ITarefa[]),
+      tarefas: computed(() => store.state.tarefa.tarefas as ITarefa[]),
       store,
     };
   },
